@@ -107,6 +107,23 @@ local GameResources = {
         "Celestial",
         "Kirin"
     },
+    ["Nodes"] = {
+        ["Food"] = {
+            "AppleBarrel", 
+            "BerryBush", 
+            "CatctusFruit", 
+            "FoodPallet", 
+            "LargeBerryBush", 
+            "Stump"
+        },
+        ["Resource"] = {
+            "StoneDeposit",
+            "FallenTree"
+        },
+        ["Treasure"] = {
+            "Treasure"
+        }
+    },
     ["Resources"] = {},
     ["Potions"] = {},
     ["Seeds"]  = {}
