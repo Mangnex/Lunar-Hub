@@ -20,4 +20,12 @@ function Library.IsPrivateServer()
     end
 end
 
+function Library.SupportedExecutor()
+    if hookfunction and hookmetamethod and getrawmetatable then
+        return true
+    else
+        return false
+    end
+end
+
 return Library
