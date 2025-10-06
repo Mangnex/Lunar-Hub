@@ -127,7 +127,114 @@ local GameResources = {
         }
     },
     ["Potions"] = {},
-    ["Foods"] = {},
+    ["Foods"] = {
+        ["Apple"] = { 
+            ["Image"] = 8817643566 
+        },
+        ["Carrot"] = { 
+            ["Image"] = 8817628215 
+        },
+        ["Peach"] = { 
+            ["Image"] = 8817637998 
+        },
+        ["Banana"] = { 
+            ["Image"] = 8817693445 
+        },
+        ["Onion"] = { 
+            ["Image"] = 8817690021 
+        },
+        ["Watermelon"] = { 
+            ["Image"] = 8817666936 
+        },
+        ["Pumpkin"] = { 
+            ["Image"] = 8817609454 
+        },
+        ["Pineapple"] = { 
+            ["Image"] = 8817618940 
+        },
+        ["Dragonfruit"] = { 
+            ["Image"] = 8817702607 
+        },
+        ["Coconut"] = {
+            ["World"] = "Prehistoric",
+            ["Image"] = 8817678239 
+        },
+        ["Corn"] = { 
+            ["Image"] = 8817646262 
+        },
+        ["Pear"] = { 
+            ["Image"] = 8817629815 
+        },
+        ["Broccoli"] = { 
+            ["Image"] = 8817635161 
+        },
+        ["Mushroom"] = { 
+            ["Image"] = 8817698881 
+        },
+        ["Almond"] = { 
+            ["Image"] = 8817683265 
+        },
+        ["Kelp"] = { 
+            ["Image"] = 8817656152 
+        },
+        ["PricklyPear"] = { 
+            ["Image"] = 8817606110 
+        },
+        ["GlowingMushroom"] = { 
+            ["Image"] = 8817621649 
+        },
+        ["JuniperBerry"] = { 
+            ["Image"] = 8817705807 
+        },
+        ["Avacado"] = {
+            ["World"] = "Prehistoric",
+            ["Image"] = 8817670033 
+        },
+        ["Lemon"] = { 
+            ["Image"] = 8817649177 
+        },
+        ["Strawberry"] = { 
+            ["Image"] = 8817632460 
+        },
+        ["Potato"] = { 
+            ["Image"] = 8817640230 
+        },
+        ["Cherry"] = { 
+            ["Image"] = 8817696269 
+        },
+        ["Blueberry"] = { 
+            ["Image"] = 8817686659 
+        },
+        ["Grapes"] = { 
+            ["Image"] = 8817651366 
+        },
+        ["Chili"] = { 
+            ["Image"] = 8817601770 
+        },
+        ["CottonCandy"] = { 
+            ["Image"] = 8817612347 
+        },
+        ["Lime"] = { 
+            ["Image"] = 8817708266 
+        },
+        ["CacaoBean"] = { 
+            ["Image"] = 8817672586 
+        },
+        ["KajiFruit"] = { 
+            ["World"] = "Shinrin",
+            ["Image"] = 71995107858467 
+        },
+        ["Edamame"] = { 
+            ["Image"] = 131694513217317 
+        },
+        ["MistSudachi"] = {
+            ["World"] = "Shinrin",
+            ["Image"] = 110184426558554 
+        },
+        ["PotentSakuraBerry"] = { 
+            ["Image"] = 112199675324187
+        },
+    },
     ["Resources"] = {}
 }
 
