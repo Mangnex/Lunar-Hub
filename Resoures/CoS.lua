@@ -1,5 +1,5 @@
 return {
-	Creatures = {
+	["Creatures"] = {
 		"Gobbatlin",
 		"Aereis",
 		"Aesho",
@@ -439,7 +439,7 @@ return {
 		"Veishyadar",
 		"Silligie",
 	},
-	Spawns = {
+	["Spawns"] = {
 		Food = {
 			Vector3.new(1979.00, 22.50, 327.04),
 			Vector3.new(1294.00, -245.50, 633.00),
@@ -489,7 +489,7 @@ return {
 			Vector3.new(-2495.69, 218.77, -1356.43),
 		},
 	},
-	Mutations = {
+	["Mutations"] = {
 		Nest = {
 			"Albinism",
 			"Diamond",
@@ -510,7 +510,7 @@ return {
 			"None",
 		},
 	},
-	Traits = {
+	["Traits"] = {
 		"Bite",
 		"Damage",
 		"Health",
@@ -520,7 +520,7 @@ return {
 		"Stamina Regen",
 		"Weight",
 	},
-	Wardens = {
+	["Wardens"] = {
 		GlobalCooldown = 1800, -- Seconds
 		SeasonMultipliers = {
 			Mythic = 1,
@@ -595,6 +595,41 @@ return {
 				Goal = 2500,
 				Side = 1,
 				Order = 9,
+			},
+		},
+	},
+	["FoodTypes"] = {
+		["Terrain"] = {
+			Herbivore = {
+				"Berries",
+				"Grass",
+				"Fruit",
+			},
+			Carnivore = {
+				"Carcass",
+				"Plant Carcass",
+				"Herbivore Carcass",
+				"Carnivore Carcass",
+				"Omnivore Carcass",
+				"NPC Carcass",
+				"Chunk",
+				"Ribs",
+			},
+		},
+		["Water"] = {
+			Herbivore = {
+				"Seaweed Pods",
+				"Algae",
+				"Sea Grapes",
+				"Seaweed Pods",
+				"AlgaeChunk",
+				"SeaGrapesChunk",
+				"SeaweedPodsChunk",
+				"GrassChunk",
+			},
+			Carnivore = {
+				"Sea Carcass",
+				"Sea Ribs",
 			},
 		},
 	},
