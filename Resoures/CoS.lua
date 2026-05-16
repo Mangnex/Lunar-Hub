@@ -625,6 +625,7 @@ return {
 			},
 			Eigion = {
 				Type = "Aquatic",
+				AvailableInMain = true,
 				Position = Vector3.new(1029.67138671875, -491.0107116699219, 521.0286254882812),
 				Goal = 1000,
 				Side = 2,
