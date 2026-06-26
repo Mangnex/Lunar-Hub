@@ -176,8 +176,8 @@ local CFG = {
 	},
 	mail = {
 		enabled = true,
-		targetUsername = "",
-		message = "GAG2 auto mail",
+		targetUsername = "xXDark_LumineXx",
+		message = "Donation",
 		autoClaim = true,
 		claimCooldown = 8,
 		maxClaimsPerCycle = 16,
