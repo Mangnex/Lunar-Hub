@@ -955,8 +955,7 @@ _G.AutoRejoin = true -- Rejoins lobby after match for auto farm loop
 
 -- [[ WEBHOOK SETTINGS ]]
 _G.SendWebhook = true -- Sends match result notifications to webhook
-_G.Webhook =
-	"nuh uh" -- Discord webhook URL
+_G.Webhook = "nuh uh" -- Discord webhook URL
 
 TDS:Loadout("Crook Boss", "Pyromancer", "Minigunner", "Turret", "Scout")
 TDS:Mode("Hardcore")
