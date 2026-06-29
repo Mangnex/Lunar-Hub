@@ -2,6 +2,15 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
+-- Anti Stuck in Lobby
+if game.PlaceId == 3260590327 then
+	task.delay(60, function()
+		if game.PlaceId == 3260590327 then
+			game:GetService("TeleportService"):Teleport(3260590327)
+		end
+	end)
+end
+
 -------------------------------------- Services ------------------------------------------
 
 local Players = game:GetService("Players")
@@ -10,6 +19,7 @@ local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local PathfindingService = game:GetService("PathfindingService")
+local GuiService = game:GetService("GuiService")
 
 -------------------------------------- Variables ------------------------------------------
 
@@ -687,6 +697,56 @@ local function StartAutoSkip()
 		AutoSkipRunning = false
 	end)
 end
+
+local function Reconnect()
+	local initial = GuiService:GetErrorMessage()
+	if initial and initial ~= "" then
+		task.wait(5)
+		if GuiService:GetErrorMessage() == initial then
+			pcall(function()
+				TeleportService:TeleportReconnect()
+			end)
+		end
+	end
+end
+
+local function AntiStuck()
+	task.spawn(function()
+		local secondsStuck = 0
+
+		while true do
+			task.wait(1)
+
+			local attrLoading = LP:GetAttribute("Loading") == true
+			local attrTeleporting = LP:GetAttribute("Teleporting") == true
+
+			local pg = LP:FindFirstChild("PlayerGui")
+			local loadScreen = pg and pg:FindFirstChild("LoadingScreen")
+			local loadContent = loadScreen and loadScreen:FindFirstChild("content")
+			local isLoadVisible = loadContent and loadContent.Visible == true
+
+			local countScreen = pg and pg:FindFirstChild("PlayerCountdown")
+			local countFrame = countScreen and countScreen:FindFirstChild("Frame")
+			local isCountVisible = countFrame and countFrame.Visible == true
+
+			if attrLoading or attrTeleporting or isLoadVisible or isCountVisible then
+				secondsStuck = secondsStuck + 1
+				if secondsStuck >= 60 then
+					pcall(function()
+						TeleportService:Teleport(3260590327)
+					end)
+					secondsStuck = 0
+				end
+			else
+				secondsStuck = 0
+			end
+		end
+	end)
+end
+
+AntiStuck()
+task.spawn(Reconnect)
+GuiService.ErrorMessageChanged:Connect(Reconnect)
 
 GameState = IdentifyGameState()
 
