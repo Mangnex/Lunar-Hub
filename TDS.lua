@@ -1016,6 +1016,69 @@ _G.AutoRejoin = true -- Rejoins lobby after match for auto farm loop
 -- [[ WEBHOOK SETTINGS ]]
 _G.SendWebhook = true -- Sends match result notifications to webhook
 
+-- [[ START STRATEGY ]]
+TDS:Loadout("Minigunner", "Militant", "None", "None", "None")
+TDS:Mode("Easy")
+TDS:GameInfo("Dead Ahead", {"HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed"})
+
+-- [[ TIME SCALE SETTINGS ]]
+--TDS:UnlockTimeScale()
+--TDS:TimeScale(2)
+
+TDS:Place("Militant", 1.68, 0.95, -9.15) -- 1
+TDS:Upgrade(1)
+TDS:Upgrade(1)
+TDS:Place("Militant", 3.91, 0.95, -11.20) -- 2
+TDS:Upgrade(2)
+TDS:Upgrade(2)
+TDS:Place("Militant", 0.38, 1.00, -6.29) -- 3
+TDS:Upgrade(3)
+TDS:Upgrade(3)
+TDS:Place("Militant", 1.20, 1.00, -3.38) -- 4
+TDS:Upgrade(4)
+TDS:Upgrade(4)
+TDS:Place("Militant", 6.52, 1.00, -9.58) -- 5
+TDS:Upgrade(5)
+TDS:Upgrade(5)
+TDS:Place("Militant", 7.70, 0.95, -6.73) -- 6
+TDS:Upgrade(6)
+TDS:Upgrade(6)
+TDS:Place("Militant", 6.69, 0.95, -3.85) -- 7
+TDS:Upgrade(7)
+TDS:Upgrade(7)
+TDS:Place("Militant", 4.03, 1.00, -2.24) -- 8
+TDS:Upgrade(8)
+TDS:Upgrade(8)
+TDS:Upgrade(1)
+TDS:Upgrade(2)
+TDS:Upgrade(3)
+TDS:Upgrade(5)
+TDS:Upgrade(4)
+TDS:Upgrade(6)
+TDS:Upgrade(7)
+TDS:Upgrade(8)
+TDS:Place("Minigunner", -1.02, 1.00, 2.26) -- 9
+TDS:Place("Minigunner", -3.61, 1.00, 0.73) -- 10
+TDS:Upgrade(3)
+TDS:Upgrade(6)
+TDS:Place("Minigunner", -5.11, 1.00, -13.92) -- 11
+TDS:Upgrade(5)
+TDS:Upgrade(7)
+TDS:Upgrade(2)
+TDS:Place("Minigunner", 5.27, 1.00, 3.87) -- 12
+TDS:Place("Minigunner", 9.50, 1.00, 4.96) -- 13
+TDS:Place("Minigunner", 12.24, 1.00, 7.82) -- 14
+TDS:Place("Minigunner", 12.17, 1.00, 11.74) -- 15
+TDS:Place("Minigunner", 12.19, 1.00, 15.66) -- 16
+TDS:Place("Minigunner", 12.90, 1.00, 19.33) -- 17
+TDS:Place("Minigunner", 11.87, 1.00, 24.99) -- 18
+
+-- [[ END OF STRATEGY ]]
+
+--[[
+
+GEMS FARMING
+
 TDS:Loadout("Crook Boss", "Pyromancer", "Minigunner", "Turret", "Scout")
 TDS:Mode("Hardcore")
 TDS:GameInfo("Wretched Front", {})
@@ -1050,3 +1113,5 @@ TDS:Place("Scout", 2.4927287101745605, 1.0217328071594238, -31.41207504272461)
 TDS:Place("Scout", 12.284514427185059, 0.5448119640350342, -6.019914627075195)
 TDS:Place("Scout", -18.197608947753906, -0.4582497179508209, 6.592010498046875)
 TDS:Place("Scout", 27.326263427734375, 0.49346378445625305, 13.229872703552246)
+
+--]]
