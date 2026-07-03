@@ -31,6 +31,7 @@ local RE = ReplicatedStorage:WaitForChild("RemoteEvent")
 -------------------------------------- Script Variables ------------------------------------------
 
 local GameState = nil
+local TDS = {}
 local ItemNames = {
 	["17447507910"] = "Timescale Ticket(s)",
 	["17438486690"] = "Range Flag(s)",
@@ -353,6 +354,43 @@ local function StartAutoReady()
 
 		AutoReadyRunning = false
 	end)
+end
+
+local function GetCurrentWave()
+	local label
+
+	repeat
+		task.wait(0.5)
+		label = PlayerGui:FindFirstChild("ReactGameTopGameDisplay", true)
+			and PlayerGui.ReactGameTopGameDisplay.Frame.wave.container:FindFirstChild("value")
+	until label ~= nil
+
+	local text = label.Text
+	local WaveNum = text:match("(%d+)")
+
+	return tonumber(WaveNum) or 0
+end
+
+local function DoSetOption(TObj, OptName, OptVal, ReqWave)
+	if ReqWave then
+		repeat
+			task.wait(0.3)
+		until GetCurrentWave() >= ReqWave
+	end
+
+	while true do
+		local ok, res = pcall(function()
+			return RF:InvokeServer("Troops", "Option", "Set", {
+				Troop = TObj,
+				Name = OptName,
+				Value = OptVal,
+			})
+		end)
+		if ok and CheckResult(res) then
+			return true
+		end
+		task.wait(0.25)
+	end
 end
 
 local function RejoinMatch()
@@ -698,6 +736,111 @@ local function StartAutoSkip()
 	end)
 end
 
+local DJ
+
+local function StartAutoDjBooth()
+	if AutoDjRunning or not _G.AutoDJ then
+		return
+	end
+	AutoDjRunning = true
+
+	task.spawn(function()
+		while _G.AutoDJ do
+			local TowersFolder = workspace:FindFirstChild("Towers")
+
+			if TowersFolder then
+				for _, towers in ipairs(TowersFolder:GetDescendants()) do
+					if
+						towers:IsA("Folder")
+						and towers.Name == "TowerReplicator"
+						and towers:GetAttribute("Name") == "DJ Booth"
+						and towers:GetAttribute("OwnerId") == game.Players.LocalPlayer.UserId
+						and (towers:GetAttribute("Upgrade") or 0) >= 3
+					then
+						DJ = towers.Parent
+					end
+				end
+			end
+
+			if DJ then
+				RF:InvokeServer("Troops", "Abilities", "Activate", { Troop = DJ, Name = "Drop The Beat", Data = {} })
+			end
+
+			task.wait(1)
+		end
+
+		AutoDjRunning = false
+	end)
+end
+
+local function DoActivateAbility(TObj, AbName, AbData, IsLooping)
+	if type(AbData) == "boolean" then
+		IsLooping = AbData
+		AbData = nil
+	end
+
+	AbData = type(AbData) == "table" and AbData or nil
+
+	local positions
+	if AbData and type(AbData.towerPosition) == "table" then
+		positions = AbData.towerPosition
+	end
+
+	local CloneIdx = AbData and AbData.towerToClone
+	local TargetIdx = AbData and AbData.towerTarget
+
+	local function attempt()
+		while true do
+			local ok, res = pcall(function()
+				local data
+
+				if AbData then
+					data = table.clone(AbData)
+
+					if positions and #positions > 0 then
+						data.towerPosition = positions[math.random(#positions)]
+					end
+
+					if type(CloneIdx) == "number" then
+						data.towerToClone = TDS.PlacedTowers[CloneIdx]
+					end
+
+					if type(TargetIdx) == "number" then
+						data.towerTarget = TDS.PlacedTowers[TargetIdx]
+					end
+				end
+
+				return RF:InvokeServer("Troops", "Abilities", "Activate", {
+					Troop = TObj,
+					Name = AbName,
+					Data = data,
+				})
+			end)
+
+			if ok and CheckResult(res) then
+				return true
+			end
+
+			task.wait(0.25)
+		end
+	end
+
+	if IsLooping then
+		local active = true
+		task.spawn(function()
+			while active do
+				attempt()
+				task.wait(1)
+			end
+		end)
+		return function()
+			active = false
+		end
+	end
+
+	return attempt()
+end
+
 local function Reconnect()
 	local initial = GuiService:GetErrorMessage()
 	if initial and initial ~= "" then
@@ -751,8 +894,6 @@ GuiService.ErrorMessageChanged:Connect(Reconnect)
 GameState = IdentifyGameState()
 
 -------------------------------------- API ------------------------------------------
-
-local TDS = {}
 
 TDS = {
 	PlacedTowers = {},
@@ -975,10 +1116,64 @@ function TDS:Upgrade(idx, PId)
 	end
 end
 
+function TDS:SetTarget(idx, TargetType, ReqWave)
+	if ReqWave then
+		repeat
+			task.wait(0.5)
+		until GetCurrentWave() >= ReqWave
+	end
+
+	local t = self.PlacedTowers[idx]
+	if not t then
+		return
+	end
+
+	pcall(function()
+		RF:InvokeServer("Troops", "Target", "Set", {
+			Troop = t,
+			Target = TargetType,
+		})
+		print("Set target for tower index " .. idx .. " to " .. TargetType)
+	end)
+end
+
+function TDS:SetOption(idx, name, val, ReqWave)
+	local t = self.PlacedTowers[idx]
+	if t then
+		print("Setting option '" .. name .. "' for tower index: " .. idx)
+		return DoSetOption(t, name, val, ReqWave)
+	end
+	return false
+end
+
+function TDS:MedicSelect(idx, val)
+	local t = self.PlacedTowers[idx]
+	local target = self.PlacedTowers[val]
+	if t and target then
+		print("Medic: " .. idx .. " -> " .. val)
+		RF:InvokeServer("Troops", "TowerServerEvent", "ToggleSelectedTower", t, target)
+		return true
+	end
+	return false
+end
+
+function TDS:Ability(idx, name, data, loop)
+	local t = self.PlacedTowers[idx]
+	if not t then
+		return false
+	end
+	print("Activating ability '" .. name .. "' for tower index: " .. idx)
+	return DoActivateAbility(t, name, data, loop)
+end
+
 task.spawn(function()
 	while true do
 		if not AutoReadyRunning then
 			StartAutoReady()
+		end
+
+		if _G.AutoDJ and not AutoDjRunning then
+			StartAutoDjBooth()
 		end
 
 		if _G.AutoRejoin and not BackToLobbyRunning then
@@ -1006,7 +1201,7 @@ _G.ClaimRewards = true -- Claims lobby rewards after matches
 _G.AutoPickups = true -- Collects event pickups/tokens in match
 _G.AutoSkip = true -- Automatically votes to skip waves
 _G.AutoChain = false -- Enables automatic commander chain logic if used by the script
-_G.AutoDJ = false -- Automatically manages DJ Booth support
+_G.AutoDJ = true -- Automatically manages DJ Booth support
 _G.AutoNecro = false -- Automatically uses Necromancer ability
 _G.AutoMercenary = false -- Automatically uses Mercenary Base ability
 _G.AutoMilitary = false -- Automatically uses Military Base ability
@@ -1017,64 +1212,160 @@ _G.AutoRejoin = true -- Rejoins lobby after match for auto farm loop
 _G.SendWebhook = true -- Sends match result notifications to webhook
 
 -- [[ START STRATEGY ]]
-TDS:Loadout("Minigunner", "Militant", "EvolvedJuggernaut", "None", "None")
-TDS:Mode("Easy")
-TDS:GameInfo("Dead Ahead", {"HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed", "FlyingEnemies"})
+TDS:Loadout("EvolvedJuggernaut", "Engineer", "Brawler", "DJ Booth", "Hacker")
+TDS:Mode("Frost")
+TDS:GameInfo("Simplicity", {"HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed"})
 
 -- [[ TIME SCALE SETTINGS ]]
---TDS:UnlockTimeScale()
---TDS:TimeScale(2)
+TDS:UnlockTimeScale()
+TDS:TimeScale(2)
 
-TDS:Place("Militant", 1.68, 0.95, -9.15) -- 1
+TDS:Place("Brawler", -17.85, 1.00, -5.93) -- 1
+TDS:Place("Brawler", -18.39, 1.00, -10.99) -- 2
+TDS:Place("Brawler", -18.35, 1.00, -8.90) -- 3
 TDS:Upgrade(1)
 TDS:Upgrade(1)
-TDS:Place("Militant", 3.91, 0.95, -11.20) -- 2
-TDS:Upgrade(2)
-TDS:Upgrade(2)
-TDS:Place("Militant", 0.38, 1.00, -6.29) -- 3
-TDS:Upgrade(3)
-TDS:Upgrade(3)
-TDS:Place("Militant", 1.20, 1.00, -3.38) -- 4
-TDS:Upgrade(4)
-TDS:Upgrade(4)
-TDS:Place("Militant", 6.52, 1.00, -9.58) -- 5
-TDS:Upgrade(5)
-TDS:Upgrade(5)
-TDS:Place("Militant", 7.70, 0.95, -6.73) -- 6
-TDS:Upgrade(6)
-TDS:Upgrade(6)
-TDS:Place("Militant", 6.69, 0.95, -3.85) -- 7
-TDS:Upgrade(7)
-TDS:Upgrade(7)
-TDS:Place("Militant", 4.03, 1.00, -2.24) -- 8
-TDS:Upgrade(8)
-TDS:Upgrade(8)
 TDS:Upgrade(1)
-TDS:Upgrade(2)
-TDS:Upgrade(3)
+TDS:Place("DJ Booth", -7.13, 1.00, -9.00) -- 4
+TDS:Place("Hacker", -11.34, 1.00, -9.32) -- 5
 TDS:Upgrade(5)
-TDS:Upgrade(4)
+TDS:Upgrade(5)
+TDS:Upgrade(3)
+TDS:Upgrade(3)
+TDS:Upgrade(3)
+TDS:Upgrade(2)
+TDS:Upgrade(2)
+TDS:Upgrade(2)
+TDS:Place("Brawler", -18.35, 1.00, -3.84) -- 6
 TDS:Upgrade(6)
+TDS:Upgrade(6)
+TDS:Upgrade(6)
+TDS:Upgrade(4)
+TDS:Upgrade(4)
+TDS:Upgrade(4)
+TDS:SetOption(4, "Track", "Green")
+TDS:Place("Brawler", -16.32, 1.00, -8.96) -- 7
 TDS:Upgrade(7)
+TDS:Upgrade(7)
+TDS:Upgrade(7)
+TDS:Place("Brawler", -20.26, 1.00, -11.91) -- 8
 TDS:Upgrade(8)
-TDS:Place("Minigunner", -1.02, 1.00, 2.26) -- 9
+TDS:Upgrade(8)
+TDS:Upgrade(8)
+TDS:Place("Brawler", -16.27, 1.00, -10.97) -- 9
 TDS:Upgrade(9)
-TDS:Place("Minigunner", -3.61, 1.00, 0.73) -- 10
+TDS:Upgrade(9)
+TDS:Upgrade(9)
+TDS:Place("Brawler", -18.49, 1.00, -13.07) -- 10
 TDS:Upgrade(10)
-TDS:Upgrade(3)
-TDS:Upgrade(6)
-TDS:Place("Minigunner", -5.11, 1.00, -13.92) -- 11
+TDS:Upgrade(10)
+TDS:Upgrade(10)
+TDS:Place("Brawler", -14.15, 1.00, -9.09) -- 11
 TDS:Upgrade(11)
-TDS:Upgrade(5)
-TDS:Upgrade(7)
-TDS:Upgrade(2)
-TDS:Place("EvolvedJuggernaut", 5.27, 1.00, 3.87) -- 12
-TDS:Place("Minigunner", 12.19, 1.00, 15.66) -- 13
+TDS:Upgrade(11)
+TDS:Upgrade(11)
+TDS:Place("Brawler", -14.33, 1.00, -11.51) -- 12
+TDS:Upgrade(12)
+TDS:Upgrade(12)
+TDS:Upgrade(12)
+TDS:Place("Engineer", -12.19, 1.00, -2.89) -- 13
 TDS:Upgrade(13)
-TDS:Place("Minigunner", 12.90, 1.00, 19.33) -- 17
+TDS:Upgrade(13)
+TDS:Upgrade(13)
+TDS:Upgrade(13)
+TDS:Place("Engineer", -9.15, 1.00, -2.80) -- 14
 TDS:Upgrade(14)
-TDS:Place("Minigunner", 11.87, 1.00, 24.99) -- 18
+TDS:Upgrade(14)
+TDS:Upgrade(14)
+TDS:Upgrade(14)
+TDS:Place("Engineer", -12.04, 1.00, 0.17) -- 15
 TDS:Upgrade(15)
+TDS:Upgrade(15)
+TDS:Upgrade(15)
+TDS:Upgrade(15)
+TDS:Place("Engineer", -8.98, 1.00, 0.25) -- 16
+TDS:Upgrade(16)
+TDS:Upgrade(16)
+TDS:Upgrade(16)
+TDS:Upgrade(16)
+TDS:Place("Engineer", -11.81, 1.00, 3.33) -- 17
+TDS:Upgrade(17)
+TDS:Upgrade(17)
+TDS:Upgrade(17)
+TDS:Upgrade(17)
+TDS:Place("Engineer", -8.78, 1.00, 3.51) -- 18
+TDS:Upgrade(18)
+TDS:Upgrade(18)
+TDS:Upgrade(18)
+TDS:Upgrade(18)
+TDS:SetOption(4, "Track", "Red")
+TDS:Upgrade(4)
+TDS:Upgrade(4)
+TDS:Upgrade(6)
+TDS:Upgrade(1)
+TDS:Upgrade(3)
+TDS:Upgrade(7)
+TDS:Upgrade(11)
+TDS:Upgrade(12)
+TDS:Upgrade(9)
+TDS:Upgrade(2)
+TDS:Upgrade(8)
+TDS:Upgrade(10)
+TDS:Upgrade(13)
+TDS:Upgrade(13)
+TDS:Upgrade(14)
+TDS:Upgrade(14)
+TDS:Upgrade(15)
+TDS:Upgrade(15)
+TDS:Upgrade(16)
+TDS:Upgrade(16)
+TDS:Upgrade(18)
+TDS:Upgrade(18)
+TDS:Upgrade(17)
+TDS:Upgrade(17)
+TDS:Place("EvolvedJuggernaut", -0.99, 1.00, 3.49) -- 19
+TDS:Upgrade(19)
+TDS:Upgrade(19)
+TDS:Upgrade(19)
+TDS:Upgrade(19)
+TDS:Upgrade(6)
+TDS:Upgrade(1)
+TDS:Upgrade(7)
+TDS:Upgrade(11)
+TDS:Upgrade(3)
+TDS:Upgrade(2)
+TDS:Upgrade(8)
+TDS:Upgrade(10)
+TDS:Upgrade(9)
+TDS:Upgrade(12)
+TDS:Upgrade(19)
+TDS:Upgrade(5)
+TDS:Upgrade(5)
+TDS:Ability(5, "Hologram Tower", {
+      towerToClone = 19,
+      towerPosition = Vector3.new(4.45011, 1.00, 3.52977),
+  }, true)
+TDS:Upgrade(19)
+TDS:Upgrade(19)
+TDS:Upgrade(5,2)
+TDS:Place("Hacker", -5.43, 1.00, -3.30) -- 20
+TDS:Upgrade(20)
+TDS:Upgrade(20)
+TDS:Upgrade(20)
+TDS:Upgrade(20)
+TDS:Upgrade(20,2)
+TDS:SetTarget(19,"Strongest",40)
+TDS:Ability(5, "Hologram Tower", {towerToClone = 19, towerPosition = Vector3.new(4.26899, 0.999983, 3.40705)},true)
+TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.53457, 0.999983, 3.16771)},true)
+TDS:Ability(5, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.45011, 0.999983, 3.52977)},true)
+TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.31039, 0.999983, 2.70763)},true)
+TDS:Ability(5, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(5.90711, 0.999983, -7.9269)},true)
+TDS:Ability(20, "Hologram Tower", {towerToClone = 16, towerPosition = Vector3.new(-2.06689, 0.999993, -3.50138)},true)
+TDS:Ability(5, "Hologram Tower", {towerToClone = 16, towerPosition = Vector3.new(1.73061, 0.999983, -3.53392)},true)
+TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(5.7671, 0.999983, -3.76239)},true)
+
+
+-- [[ END OF STRATEGY ]]
 
 -- [[ END OF STRATEGY ]]
 
