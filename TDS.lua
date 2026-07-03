@@ -841,6 +841,71 @@ local function DoActivateAbility(TObj, AbName, AbData, IsLooping)
 	return attempt()
 end
 
+-- // timescale logic
+local function SetGameTimescale(TargetVal)
+	if GameState ~= "GAME" then
+		return false
+	end
+
+	local SpeedList = { 0, 0.5, 1, 1.5, 2 }
+
+	local TargetIdx
+	for i, v in ipairs(SpeedList) do
+		if v == TargetVal then
+			TargetIdx = i
+			break
+		end
+	end
+	if not TargetIdx then
+		return
+	end
+
+	local SpeedLabel = game.Players.LocalPlayer.PlayerGui.ReactUniversalHotbar.Frame.timescale.Speed
+
+	local CurrentVal = tonumber(SpeedLabel.Text:match("x([%d%.]+)"))
+	if not CurrentVal then
+		return
+	end
+
+	local CurrentIdx
+	for i, v in ipairs(SpeedList) do
+		if v == CurrentVal then
+			CurrentIdx = i
+			break
+		end
+	end
+	if not CurrentIdx then
+		return
+	end
+
+	local diff = TargetIdx - CurrentIdx
+	if diff < 0 then
+		diff = #SpeedList + diff
+	end
+
+	for _ = 1, diff do
+		ReplicatedStorage.RemoteFunction:InvokeServer("TicketsManager", "CycleTimeScale")
+		task.wait(0.5)
+	end
+end
+
+local function UnlockSpeedTickets()
+	if GameState ~= "GAME" then
+		return false
+	end
+
+	if LP.TimescaleTickets.Value >= 1 then
+		local TimescaleButton = PlayerGui.ReactUniversalHotbar.Frame.timescale
+		local LockIcon = TimescaleButton:FindFirstChild("Lock")
+		if LockIcon and LockIcon.Visible then
+			ReplicatedStorage.RemoteFunction:InvokeServer("TicketsManager", "UnlockTimeScale")
+			print("Unlocked timescale tickets")
+		end
+	else
+		warn("No timescale tickets left")
+	end
+end
+
 local function Reconnect()
 	local initial = GuiService:GetErrorMessage()
 	if initial and initial ~= "" then
@@ -1166,6 +1231,14 @@ function TDS:Ability(idx, name, data, loop)
 	return DoActivateAbility(t, name, data, loop)
 end
 
+function TDS:UnlockTimeScale()
+	UnlockSpeedTickets()
+end
+
+function TDS:TimeScale(val)
+	SetGameTimescale(val)
+end
+
 task.spawn(function()
 	while true do
 		if not AutoReadyRunning then
@@ -1214,7 +1287,7 @@ _G.SendWebhook = true -- Sends match result notifications to webhook
 -- [[ START STRATEGY ]]
 TDS:Loadout("EvolvedJuggernaut", "Engineer", "Brawler", "DJ Booth", "Hacker")
 TDS:Mode("Frost")
-TDS:GameInfo("Simplicity", {"HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed"})
+TDS:GameInfo("Simplicity", { "HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed" })
 
 -- [[ TIME SCALE SETTINGS ]]
 TDS:UnlockTimeScale()
@@ -1342,28 +1415,32 @@ TDS:Upgrade(19)
 TDS:Upgrade(5)
 TDS:Upgrade(5)
 TDS:Ability(5, "Hologram Tower", {
-      towerToClone = 19,
-      towerPosition = Vector3.new(4.45011, 1.00, 3.52977),
-  }, true)
+	towerToClone = 19,
+	towerPosition = Vector3.new(4.45011, 1.00, 3.52977),
+}, true)
 TDS:Upgrade(19)
 TDS:Upgrade(19)
-TDS:Upgrade(5,2)
+TDS:Upgrade(5, 2)
 TDS:Place("Hacker", -5.43, 1.00, -3.30) -- 20
 TDS:Upgrade(20)
 TDS:Upgrade(20)
 TDS:Upgrade(20)
 TDS:Upgrade(20)
-TDS:Upgrade(20,2)
-TDS:SetTarget(19,"Strongest",40)
-TDS:Ability(5, "Hologram Tower", {towerToClone = 19, towerPosition = Vector3.new(4.26899, 0.999983, 3.40705)},true)
-TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.53457, 0.999983, 3.16771)},true)
-TDS:Ability(5, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.45011, 0.999983, 3.52977)},true)
-TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(4.31039, 0.999983, 2.70763)},true)
-TDS:Ability(5, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(5.90711, 0.999983, -7.9269)},true)
-TDS:Ability(20, "Hologram Tower", {towerToClone = 16, towerPosition = Vector3.new(-2.06689, 0.999993, -3.50138)},true)
-TDS:Ability(5, "Hologram Tower", {towerToClone = 16, towerPosition = Vector3.new(1.73061, 0.999983, -3.53392)},true)
-TDS:Ability(20, "Hologram Tower", {towerToClone = 13, towerPosition = Vector3.new(5.7671, 0.999983, -3.76239)},true)
-
+TDS:Upgrade(20, 2)
+TDS:SetTarget(19, "Strongest", 40)
+TDS:Ability(5, "Hologram Tower", { towerToClone = 19, towerPosition = Vector3.new(4.26899, 0.999983, 3.40705) }, true)
+TDS:Ability(20, "Hologram Tower", { towerToClone = 13, towerPosition = Vector3.new(4.53457, 0.999983, 3.16771) }, true)
+TDS:Ability(5, "Hologram Tower", { towerToClone = 13, towerPosition = Vector3.new(4.45011, 0.999983, 3.52977) }, true)
+TDS:Ability(20, "Hologram Tower", { towerToClone = 13, towerPosition = Vector3.new(4.31039, 0.999983, 2.70763) }, true)
+TDS:Ability(5, "Hologram Tower", { towerToClone = 13, towerPosition = Vector3.new(5.90711, 0.999983, -7.9269) }, true)
+TDS:Ability(
+	20,
+	"Hologram Tower",
+	{ towerToClone = 16, towerPosition = Vector3.new(-2.06689, 0.999993, -3.50138) },
+	true
+)
+TDS:Ability(5, "Hologram Tower", { towerToClone = 16, towerPosition = Vector3.new(1.73061, 0.999983, -3.53392) }, true)
+TDS:Ability(20, "Hologram Tower", { towerToClone = 13, towerPosition = Vector3.new(5.7671, 0.999983, -3.76239) }, true)
 
 -- [[ END OF STRATEGY ]]
 
