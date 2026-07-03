@@ -1017,7 +1017,7 @@ _G.AutoRejoin = true -- Rejoins lobby after match for auto farm loop
 _G.SendWebhook = true -- Sends match result notifications to webhook
 
 -- [[ START STRATEGY ]]
-TDS:Loadout("Minigunner", "Militant", "None", "None", "None")
+TDS:Loadout("Minigunner", "Militant", "EvolvedJuggernaut", "None", "None")
 TDS:Mode("Easy")
 TDS:GameInfo("Dead Ahead", {"HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed", "FlyingEnemies"})
 
@@ -1068,20 +1068,13 @@ TDS:Upgrade(11)
 TDS:Upgrade(5)
 TDS:Upgrade(7)
 TDS:Upgrade(2)
-TDS:Place("Minigunner", 5.27, 1.00, 3.87) -- 12
-TDS:Upgrade(12)
-TDS:Place("Minigunner", 9.50, 1.00, 4.96) -- 13
+TDS:Place("EvolvedJuggernaut", 5.27, 1.00, 3.87) -- 12
+TDS:Place("Minigunner", 12.19, 1.00, 15.66) -- 13
 TDS:Upgrade(13)
-TDS:Place("Minigunner", 12.24, 1.00, 7.82) -- 14
-TDS:Upgrade(14)
-TDS:Place("Minigunner", 12.17, 1.00, 11.74) -- 15
-TDS:Upgrade(15)
-TDS:Place("Minigunner", 12.19, 1.00, 15.66) -- 16
-TDS:Upgrade(16)
 TDS:Place("Minigunner", 12.90, 1.00, 19.33) -- 17
-TDS:Upgrade(17)
+TDS:Upgrade(14)
 TDS:Place("Minigunner", 11.87, 1.00, 24.99) -- 18
-TDS:Upgrade(18)
+TDS:Upgrade(15)
 
 -- [[ END OF STRATEGY ]]
 
