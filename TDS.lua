@@ -1290,8 +1290,8 @@ TDS:Mode("Frost")
 TDS:GameInfo("Simplicity", { "HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed" })
 
 -- [[ TIME SCALE SETTINGS ]]
-TDS:UnlockTimeScale()
-TDS:TimeScale(2)
+--TDS:UnlockTimeScale()
+--TDS:TimeScale(2)
 
 TDS:Place("Brawler", -17.85, 1.00, -5.93) -- 1
 TDS:Place("Brawler", -18.39, 1.00, -10.99) -- 2
