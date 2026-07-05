@@ -1272,7 +1272,7 @@ end)
 -- [[ CONFIGURATION ]]
 _G.ClaimRewards = true -- Claims lobby rewards after matches
 _G.AutoPickups = true -- Collects event pickups/tokens in match
-_G.AutoSkip = true -- Automatically votes to skip waves
+_G.AutoSkip = false -- Automatically votes to skip waves
 _G.AutoChain = false -- Enables automatic commander chain logic if used by the script
 _G.AutoDJ = true -- Automatically manages DJ Booth support
 _G.AutoNecro = false -- Automatically uses Necromancer ability
@@ -1290,8 +1290,8 @@ TDS:Mode("Frost")
 TDS:GameInfo("Simplicity", { "HiddenEnemies", "Glass", "ExplodingEnemies", "Limitation", "Committed" })
 
 -- [[ TIME SCALE SETTINGS ]]
---TDS:UnlockTimeScale()
---TDS:TimeScale(2)
+TDS:UnlockTimeScale()
+TDS:TimeScale(2)
 
 TDS:Place("Brawler", -17.85, 1.00, -5.93) -- 1
 TDS:Place("Brawler", -18.39, 1.00, -10.99) -- 2
