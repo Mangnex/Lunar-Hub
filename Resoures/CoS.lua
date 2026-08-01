@@ -6,6 +6,7 @@ return {
 	["Realms"] = {
 		[136015760267602] = {
 			Name = "Hardcore",
+			LakesFolder = workspace:WaitForChild("Interactions").Lakes.Poisoned,
 			Regions = {
 				"Algae Sandbar",
 				"Coral Reef",
@@ -26,6 +27,7 @@ return {
 		},
 		[5233782396] = {
 			Name = "Main",
+			LakesFolder = workspace:WaitForChild("Interactions").Lakes,
 			Regions = {
 				"Algae Sandbar",
 				"Central Rockfaces",
@@ -48,6 +50,7 @@ return {
 		},
 		[125036322376647] = {
 			Name = "Aquatic",
+			LakesFolder = workspace:WaitForChild("Interactions").Lakes,
 			Regions = {
 				"Central Rockfaces",
 				"Desert",
