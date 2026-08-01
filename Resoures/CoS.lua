@@ -139,6 +139,36 @@ return {
 		"Stamina Regen",
 		"Weight",
 	},
+	["CreatureStats"] = {
+		TurnSpeed = {
+			Min = 0,
+			Max = 10,
+			Default = 1,
+			Decimals = 1,
+			Attribute = "tr",
+		},
+		Speed = {
+			Min = 0,
+			Max = 1000,
+			Default = 100,
+			Decimals = 5,
+			Attribute = "s",
+		},
+		SprintSpeed = {
+			Min = 0,
+			Max = 1000,
+			Default = 100,
+			Decimals = 5,
+			Attribute = "ss",
+		},
+		FlySpeed = {
+			Min = 0,
+			Max = 1000,
+			Default = 100,
+			Decimals = 5,
+			Attribute = "fs",
+		},
+	},
 	["Wardens"] = {
 		GlobalCooldown = 1800, -- Seconds
 		SeasonMultipliers = {
