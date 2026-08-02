@@ -6,7 +6,6 @@ return {
 	["Realms"] = {
 		[136015760267602] = {
 			Name = "Hardcore",
-			LakesFolder = workspace:WaitForChild("Interactions").Lakes.Poisoned,
 			Regions = {
 				"Algae Sandbar",
 				"Coral Reef",
