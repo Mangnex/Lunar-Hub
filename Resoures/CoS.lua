@@ -8,7 +8,9 @@ return {
 	["Realms"] = {
 		[136015760267602] = {
 			Name = "Hardcore",
-			LakesFolder = Interactions and Interactions.Lakes.Poisoned,
+			LakesFolder = Interactions and Interactions:FindFirstChild("Lakes") and Interactions.Lakes:FindFirstChild(
+				"Poisoned"
+			),
 			Regions = {
 				"Algae Sandbar",
 				"Coral Reef",
