@@ -1,0 +1,37 @@
+return {
+	Missions = {
+		Map = "Shiganshina",
+		Objective = "Skirmish",
+		Modifiers = {
+			["Fog"] = 0,
+			["Injury Prone"] = 0,
+			["Chronic Injuries"] = 0,
+			["Nightmare"] = 2,
+			["Oddball"] = 2,
+			["Time Trial"] = 2,
+			["Fatigue"] = 2,
+		},
+		Difficulty = {
+			Easy = 2, -- Grade E+
+			Normal = 5, -- Grade D+
+			Hard = 8, -- Grade C+
+		},
+	},
+	UpgradePrices = {
+		[1] = 4000,
+		[2] = 10000,
+		[3] = 16000,
+		[4] = 24000,
+		[5] = 40000,
+		[6] = 60000,
+		[7] = 88000,
+		[8] = 140000,
+		[9] = 200000,
+		[10] = 300000,
+		[11] = 400000,
+		[12] = 560000,
+		[13] = 800000,
+		[14] = 1080000,
+		[15] = 1355360,
+	},
+}
