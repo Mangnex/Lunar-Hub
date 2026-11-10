@@ -12,6 +12,14 @@ return {
 			["Time Trial"] = 2,
 			["Fatigue"] = 2,
 		},
+		SafeTimes = {
+			Easy = 45,
+			Normal = 50,
+			Hard = 75,
+			Severe = 90,
+			Aberrant = 105,
+			Freedom = 55,
+		},
 		Difficulty = {
 			Easy = 2, -- Grade E+
 			Normal = 5, -- Grade D+
