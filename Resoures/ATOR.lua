@@ -6,7 +6,6 @@ return {
 			["Fog"] = 0,
 			["Injury Prone"] = 0,
 			["Chronic Injuries"] = 0,
-			["Glass Cannon"] = 0,
 			["Evolution"] = 2,
 			["Nightmare"] = 2,
 			["Oddball"] = 2,
@@ -17,6 +16,9 @@ return {
 			Easy = 2, -- Grade E+
 			Normal = 5, -- Grade D+
 			Hard = 8, -- Grade C+
+			Severe = 11, -- Grade B+
+			Aberrant = 14, -- Grade A+
+			Freedom = 15, -- Grade S-
 		},
 	},
 	UpgradePrices = {
@@ -35,6 +37,32 @@ return {
 		[13] = 800000,
 		[14] = 1080000,
 		[15] = 1355360,
+	},
+	Codes = {
+		-- Permanent
+		["TERRA70K"] = {
+			Level = 25,
+		},
+		["WZINS"] = {
+			Level = 25,
+		},
+		-- Temporal
+		["MEMBERS1M200K"] = {
+			Level = 25,
+		},
+		["LIKES1M450K"] = {
+			Level = 25,
+		},
+		["VISITS1B100M"] = {
+			Level = 25,
+		},
+		["MEMBERS1M100K"] = {
+			Level = 25,
+		},
+		["UPDATE5"] = {
+			Level = 0,
+			Prestige = 1,
+		},
 	},
 	Grades = {
 		[0] = "E-",
