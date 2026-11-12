@@ -3,9 +3,13 @@ return {
 		Map = "Shiganshina",
 		Objective = "Skirmish",
 		Modifiers = {
+			["No Perks"] = 0,
+			["No Skills"] = 0,
+			["No Memories"] = 0,
 			["Fog"] = 0,
 			["Injury Prone"] = 0,
 			["Chronic Injuries"] = 0,
+			["Glass Cannon"] = 0,
 			["Evolution"] = 2,
 			["Nightmare"] = 2,
 			["Oddball"] = 2,
@@ -17,7 +21,7 @@ return {
 			Normal = 50,
 			Hard = 75,
 			Severe = 90,
-			Aberrant = 105,
+			Aberrant = 100,
 			Freedom = 55,
 		},
 		Difficulty = {
@@ -46,6 +50,14 @@ return {
 		[14] = 1080000,
 		[15] = 1355360,
 	},
+	Abilities = {
+		Special = { 3, 7, 72, 74, 76 },
+		Brandes = {
+			{ Name = "Offense", Start = 1, Finish = 11 },
+			{ Name = "Support", Start = 70, Finish = 80 },
+			{ Name = "Defense", Start = 38, Finish = 43 },
+		},
+	},
 	Codes = {
 		-- Permanent
 		["TERRA70K"] = {
@@ -71,23 +83,5 @@ return {
 			Level = 0,
 			Prestige = 1,
 		},
-	},
-	Grades = {
-		[0] = "E-",
-		[1] = "E",
-		[2] = "E+",
-		[3] = "D-",
-		[4] = "D",
-		[5] = "D+",
-		[6] = "C-",
-		[7] = "C",
-		[8] = "C+",
-		[9] = "B-",
-		[10] = "B",
-		[11] = "B+",
-		[12] = "A-",
-		[13] = "A",
-		[14] = "A+",
-		[15] = "S-",
 	},
 }
