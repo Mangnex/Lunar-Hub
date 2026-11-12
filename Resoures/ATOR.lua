@@ -19,10 +19,10 @@ return {
 		SafeTimes = {
 			Easy = 45,
 			Normal = 50,
-			Hard = 75,
-			Severe = 90,
-			Aberrant = 100,
-			Freedom = 55,
+			Hard = 60,
+			Severe = 60,
+			Aberrant = 60,
+			Freedom = 60,
 		},
 		Difficulty = {
 			Easy = 2, -- Grade E+
