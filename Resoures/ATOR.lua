@@ -19,9 +19,9 @@ return {
 		SafeTimes = {
 			Easy = 45,
 			Normal = 50,
-			Hard = 60,
-			Severe = 60,
-			Aberrant = 60,
+			Hard = 60, -- 75
+			Severe = 60, -- 90
+			Aberrant = 60, -- 100
 			Freedom = 60,
 		},
 		Difficulty = {
@@ -51,7 +51,7 @@ return {
 		[15] = 1355360,
 	},
 	Abilities = {
-		Special = { 3, 7, 72, 74, 76 },
+		Special = { 3, 7, 40, 72, 76 },
 		Brandes = {
 			{ Name = "Offense", Start = 1, Finish = 11 },
 			{ Name = "Support", Start = 70, Finish = 80 },
