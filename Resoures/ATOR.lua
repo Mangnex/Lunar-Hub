@@ -69,15 +69,15 @@ return {
 		},
 		[3] = {
 			Level = 150,
-			Gold = 0,
+			Gold = 600000000, -- 600M
 		},
 		[4] = {
 			Level = 175,
-			Gold = 0,
+			Gold = 800000000, -- 800M
 		},
 		[5] = {
 			Level = 225,
-			Gold = 0,
+			Gold = 100000000, -- 1B
 		},
 	},
 	Codes = {
