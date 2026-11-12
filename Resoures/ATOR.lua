@@ -58,6 +58,28 @@ return {
 			{ Name = "Defense", Start = 38, Finish = 43 },
 		},
 	},
+	Prestige = {
+		[1] = {
+			Level = 100,
+			Gold = 0,
+		},
+		[2] = {
+			Level = 125,
+			Gold = 0,
+		},
+		[3] = {
+			Level = 150,
+			Gold = 0,
+		},
+		[4] = {
+			Level = 175,
+			Gold = 0,
+		},
+		[5] = {
+			Level = 225,
+			Gold = 0,
+		},
+	},
 	Codes = {
 		-- Permanent
 		["TERRA70K"] = {
