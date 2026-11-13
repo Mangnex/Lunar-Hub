@@ -80,6 +80,14 @@ return {
 			Gold = 100000000, -- 1B
 		},
 	},
+	Slashs = {
+		Easy = 1,
+		Normal = 1,
+		Hard = 3,
+		Severe = 3,
+		Aberrant = 5,
+		Freedom = 5,
+	},
 	Codes = {
 		-- Permanent
 		["TERRA70K"] = {
