@@ -52,6 +52,10 @@ return {
 	},
 	Abilities = {
 		Special = { 3, 7, 40, 72, 76 },
+		SecondaryBrandes = {
+			{ Name = "Offense1", Start = 11, Finish = 13 },
+			{ Name = "Offense2", Start = 14, Finish = 25 },
+		},
 		Brandes = {
 			{ Name = "Offense", Start = 1, Finish = 11 },
 			{ Name = "Support", Start = 70, Finish = 80 },
@@ -69,7 +73,7 @@ return {
 		},
 		[3] = {
 			Level = 150,
-			Gold = 600000000, -- 600M
+			Gold = 50000000, -- 50M / 600M
 		},
 		[4] = {
 			Level = 175,
@@ -77,7 +81,7 @@ return {
 		},
 		[5] = {
 			Level = 225,
-			Gold = 100000000, -- 1B
+			Gold = 0,
 		},
 	},
 	Slashs = {
@@ -86,7 +90,7 @@ return {
 		Hard = 3,
 		Severe = 3,
 		Aberrant = 5,
-		Freedom = 5,
+		Freedom = 10,
 	},
 	Codes = {
 		-- Permanent
