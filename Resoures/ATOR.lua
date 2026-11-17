@@ -93,11 +93,19 @@ return {
 		Freedom = 10,
 	},
 	GasTanks = {
-		[13379349730] = workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ"), -- Shiganshina
-		[13904207646] = workspace:FindFirstChild("Climbable"):FindFirstChild("_Walls"):FindFirstChild("Gate"), -- Outskirts
-		[14638336319] = workspace:FindFirstChild("Unclimbable"):FindFirstChild("Camps"):FindFirstChild("Camp"), -- Forest
-		[15220308770] = workspace:FindFirstChild("Climbable"):FindFirstChild("Utgard") -- Utgard
-	}
+		[13379349730] = function() -- Shiganshina
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ")
+		end,
+		[13904207646] = function() -- Outskirts
+			return workspace:FindFirstChild("Climbable"):FindFirstChild("_Walls"):FindFirstChild("Gate")
+		end,
+		[14638336319] = function() -- Forest
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Camps"):FindFirstChild("Camp")
+		end,
+		[15220308770] = function() -- Utgard
+			return workspace:FindFirstChild("Climbable"):FindFirstChild("Utgard")
+		end
+	},
 	Codes = {
 		-- Permanent
 		["TERRA70K"] = {
