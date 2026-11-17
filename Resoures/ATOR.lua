@@ -81,7 +81,7 @@ return {
 		},
 		[5] = {
 			Level = 225,
-			Gold = 0,https://github.com/Mangnex/Lunar-Hub/blob/main/Resoures/ATOR.lua
+			Gold = 0,
 		},
 	},
 	Slashs = {
