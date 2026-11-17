@@ -81,7 +81,7 @@ return {
 		},
 		[5] = {
 			Level = 225,
-			Gold = 0,
+			Gold = 0,https://github.com/Mangnex/Lunar-Hub/blob/main/Resoures/ATOR.lua
 		},
 	},
 	Slashs = {
@@ -92,6 +92,12 @@ return {
 		Aberrant = 5,
 		Freedom = 10,
 	},
+	GasTanks = {
+		[13379349730] = workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ"), -- Shiganshina
+		[13904207646] = workspace:FindFirstChild("Climbable"):FindFirstChild("_Walls"):FindFirstChild("Gate"), -- Outskirts
+		[14638336319] = workspace:FindFirstChild("Unclimbable"):FindFirstChild("Camps"):FindFirstChild("Camp"), -- Forest
+		[15220308770] = workspace:FindFirstChild("Climbable"):FindFirstChild("Utgard") -- Utgard
+	}
 	Codes = {
 		-- Permanent
 		["TERRA70K"] = {
@@ -112,10 +118,6 @@ return {
 		},
 		["MEMBERS1M100K"] = {
 			Level = 25,
-		},
-		["UPDATE5"] = {
-			Level = 0,
-			Prestige = 1,
 		},
 	},
 }
