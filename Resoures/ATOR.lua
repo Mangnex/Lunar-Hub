@@ -63,16 +63,20 @@ return {
 		},
 	},
 	Prestige = {
-		[1] = {
+		[0] = {
 			Level = 100,
 			Gold = 0,
 		},
-		[2] = {
+		[1] = {
 			Level = 125,
 			Gold = 0,
 		},
-		[3] = {
+		[2] = {
 			Level = 150,
+			Gold = 0,
+		},
+		[3] = {
+			Level = 175,
 			Gold = 50000000, -- 50M / 600M
 		},
 		[4] = {
@@ -96,6 +100,9 @@ return {
 		[13379349730] = function() -- Shiganshina
 			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ")
 		end,
+		[14012874501] = function() -- Troast
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ")
+		end,
 		[13904207646] = function() -- Outskirts
 			return workspace:FindFirstChild("Climbable"):FindFirstChild("_Walls"):FindFirstChild("Gate")
 		end,
@@ -104,7 +111,16 @@ return {
 		end,
 		[15220308770] = function() -- Utgard
 			return workspace:FindFirstChild("Climbable"):FindFirstChild("Utgard")
-		end
+		end,
+		[17688739434] = function() -- Docks
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Buildings"):FindFirstChild("Hanger")
+		end,
+		[15824912319] = function() -- Stoheh
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Props"):FindFirstChild("HQ")
+		end,
+		[126678335159530] = function() -- Chapel
+			return workspace:FindFirstChild("Unclimbable"):FindFirstChild("Reloads")
+		end,
 	},
 	Codes = {
 		-- Permanent
