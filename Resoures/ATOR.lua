@@ -1,6 +1,5 @@
 return {
 	Missions = {
-		Map = "Shiganshina",
 		Objective = "Skirmish",
 		Modifiers = {
 			["No Perks"] = 0,
@@ -51,11 +50,6 @@ return {
 		[15] = 1355360,
 	},
 	Abilities = {
-		Special = { 3, 7, 40, 72, 76 },
-		SecondaryBrandes = {
-			{ Name = "Offense1", Start = 11, Finish = 13 },
-			{ Name = "Offense2", Start = 14, Finish = 25 },
-		},
 		Brandes = {
 			{ Name = "Offense", Start = 1, Finish = 11 },
 			{ Name = "Support", Start = 70, Finish = 80 },
@@ -143,5 +137,20 @@ return {
 		["MEMBERS1M100K"] = {
 			Level = 25,
 		},
+	},
+	Developers = {
+		81636850,
+		52735883,
+		1629719130,
+		97550650,
+		761016259,
+		59888460,
+		61434434,
+		2796898393,
+		1522248174,
+		923860344,
+		29927547,
+		95863469,
+		357732700,
 	},
 }
