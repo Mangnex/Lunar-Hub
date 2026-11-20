@@ -16,12 +16,12 @@ return {
 			["Fatigue"] = 0,
 		},
 		SafeTimes = {
-			Easy = 45,
-			Normal = 50,
-			Hard = 60, -- 75
-			Severe = 60, -- 90
-			Aberrant = 60, -- 100
-			Freedom = 60,
+			Easy = 40,
+			Normal = 45,
+			Hard = 55, -- 75
+			Severe = 55, -- 90
+			Aberrant = 55, -- 100
+			Freedom = 55,
 		},
 		Difficulty = {
 			Easy = 2, -- Grade E+
@@ -86,9 +86,9 @@ return {
 	},
 	Slashs = {
 		Easy = 1,
-		Normal = 1,
-		Hard = 3,
-		Severe = 3,
+		Normal = 5,
+		Hard = 5,
+		Severe = 5,
 		Aberrant = 5,
 		Freedom = 10,
 	},
