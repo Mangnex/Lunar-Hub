@@ -89,7 +89,7 @@ return {
 		Normal = 5,
 		Hard = 5,
 		Severe = 5,
-		Aberrant = 5,
+		Aberrant = 10,
 		Freedom = 10,
 	},
 	GasTanks = {
