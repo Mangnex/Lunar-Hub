@@ -24,11 +24,11 @@ return {
 			Freedom = 55,
 		},
 		Difficulty = {
-			Easy = 2, -- Grade E+
-			Normal = 5, -- Grade D+
-			Hard = 8, -- Grade C+
-			Severe = 11, -- Grade B+
-			Aberrant = 14, -- Grade A+
+			Easy = 0, -- Grade E-
+			Normal = 2, -- Grade E+
+			Hard = 5, -- Grade D+
+			Severe = 10, -- Grade C+
+			Aberrant = 12, -- Grade F+
 			Freedom = 15, -- Grade S-
 		},
 	},
