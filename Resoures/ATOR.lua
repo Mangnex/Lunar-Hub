@@ -55,6 +55,7 @@ return {
 			{ Name = "Support", Start = 70, Finish = 80 },
 			{ Name = "Defense", Start = 38, Finish = 43 },
 		},
+		Special = { 3, 7, 40, 72, 76 },
 		Others = { 12, 13, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37 },
 	},
 	Prestige = {
