@@ -2,32 +2,24 @@ return {
 	Missions = {
 		Objective = "Skirmish",
 		Modifiers = {
-			["No Perks"] = 0,
-			["No Skills"] = 0,
-			["No Memories"] = 0,
-			["Fog"] = 0,
-			["Injury Prone"] = 0,
-			["Chronic Injuries"] = 0,
-			["Glass Cannon"] = 0,
-			["Evolution"] = 0,
-			["Nightmare"] = 0,
-			["Oddball"] = 0,
-			["Time Trial"] = 0,
-			["Fatigue"] = 0,
+			"No Perks",
+			"No Skills",
+			"No Memories",
+			"Fog",
+			"Injury Prone",
+			"Chronic Injuries",
+			"Glass Cannon",
+			"Evolution",
+			"Nightmare",
+			"Oddball",
+			"Time Trial",
 		},
-		SafeTimes = {
-			Easy = 40,
-			Normal = 45,
-			Hard = 55, -- 75
-			Severe = 55, -- 90
-			Aberrant = 55, -- 100
-			Freedom = 55,
-		},
+		SafeTime = 40,
 		Difficulty = {
 			Easy = 0, -- Grade E-
 			Normal = 2, -- Grade E+
 			Hard = 5, -- Grade D+
-			Severe = 10, -- Grade C+
+			Severe = 9, -- Grade C+
 			Aberrant = 12, -- Grade F+
 			Freedom = 15, -- Grade S-
 		},
@@ -73,7 +65,7 @@ return {
 		},
 		[3] = {
 			Level = 175,
-			Gold = 50000000, -- 50M / 600M
+			Gold = 200000000, -- 200M / 600M
 		},
 		[4] = {
 			Level = 175,
@@ -91,6 +83,10 @@ return {
 		Severe = 5,
 		Aberrant = 10,
 		Freedom = 10,
+	},
+	Detonations = {
+		Aberrant = 30,
+		Freedom = 30,
 	},
 	GasTanks = {
 		[13379349730] = function() -- Shiganshina
@@ -127,12 +123,7 @@ return {
 			Level = 25,
 		},
 		-- Temporal
-		["MEMBERS1M200K"] = {
-			Level = 25,
-		},
-		["LIKES1M450K"] = {
-			Level = 25,
-		},
+		-- None for the moment (23/11/26)
 	},
 	Developers = {
 		81636850,
