@@ -13,6 +13,7 @@ return {
 			"Nightmare",
 			"Oddball",
 			"Time Trial",
+			"Fatigue"
 		},
 		SafeTime = 40,
 		Difficulty = {
@@ -53,27 +54,21 @@ return {
 	},
 	Prestige = {
 		[0] = {
-			Level = 100,
 			Gold = 0,
 		},
 		[1] = {
-			Level = 125,
 			Gold = 0,
 		},
 		[2] = {
-			Level = 150,
 			Gold = 0,
 		},
 		[3] = {
-			Level = 175,
 			Gold = 200000000, -- 200M / 600M
 		},
 		[4] = {
-			Level = 175,
 			Gold = 800000000, -- 800M
 		},
 		[5] = {
-			Level = 225,
 			Gold = 0,
 		},
 	},
