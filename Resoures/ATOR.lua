@@ -15,7 +15,7 @@ return {
 			"Time Trial",
 			"Fatigue",
 		},
-		SafeTime = 40,
+		SafeTime = 0,
 		Difficulty = {
 			Easy = 0, -- Grade E-
 			Normal = 2, -- Grade E+
