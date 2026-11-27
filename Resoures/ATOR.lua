@@ -11,7 +11,7 @@ return {
 			"Glass Cannon",
 			"Evolution",
 			"Nightmare",
-			"Oddball",
+			--"Oddball",
 			"Time Trial",
 			"Fatigue",
 		},
